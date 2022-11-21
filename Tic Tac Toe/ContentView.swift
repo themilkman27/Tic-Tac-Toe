@@ -55,6 +55,11 @@ struct ContentView: View {
                 }
                     .onChange(of: moves) { newValue in
                     checkForWinner()
+                        if !(gameOver || moves.contains("")) {
+                            winMessage = "Cats Game"
+                            gameOver = true
+                        
+                        }
                     }
                     .padding()
             }
@@ -67,8 +72,19 @@ struct ContentView: View {
         }
     }
     private func checkForWinner() {
-        if moves[0] != "" && moves[0] == moves[1] && moves[1] == moves[2] {
-            winMessage = "\(moves[0]) is the winner!"
+        checkLine(a: 0, b: 1, c: 2)
+         checkLine(a: 3, b: 4, c: 5)
+         checkLine(a: 6, b: 7, c: 8)
+         checkLine(a: 0, b: 4, c: 8)
+         checkLine(a: 6, b: 4, c: 2)
+         checkLine(a: 0, b: 3, c: 6)
+         checkLine(a: 1, b: 4, c: 7)
+         checkLine(a: 2, b: 5, c: 8)
+     }
+    private func checkLine(a: Int, b: Int, c: Int) {
+        if moves[a] != "" && moves[a] == moves[b] && moves[b] == moves[c] {
+        
+            winMessage = "\(moves[a]) is the winner!"
             gameOver = true
         }
     }
